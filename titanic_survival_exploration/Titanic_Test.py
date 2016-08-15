@@ -85,7 +85,7 @@ def accuracy_score(truth,pred):
 # # # Make the predictions
 # predictions = predictions_2(data)
 #print accuracy_score(outcomes, predictions)
-survival_stats(data, outcomes, 'Pclass',["Sex == 'male'"])
+survival_stats(data, outcomes, 'Age',["Sex == 'male'"])
 # survival_stats(data, outcomes, 'Pclass', ["Sex == 'male'"])
 def predictions_3(data):
     """ Model with two features: 
@@ -94,14 +94,24 @@ def predictions_3(data):
     
     predictions = []
     for _, passenger in data.iterrows():
-        #if(passenger['Sex'] == 'male' or (passenger['Age'] >= 10 and passenger['Age'] <=20  and passenger['Age']>=30) or (passenger["SibSp"]>2)  or passenger['Fare'] < 7):
-    	if(passenger['Sex'] == 'female'):
-            if(passenger['SibSp']<=2):
-                predictions.append(1)
+        if(passenger['Sex'] == 'male'):
+            if(passenger['Pclass'] == 2):
+                if(passenger['Age'] >=12):
+                    predictions.append(0)    
+                else:
+                    predictions.append(1)  
             else:
-                predictions.append(0)    
-    	if((passenger['Sex'] == 'male')):
-            predictions.append(0) 
+                predictions.append(0)               
+        else:
+            if(passenger['SibSp'] > 2.5):
+                predictions.append(0)
+            else:
+                predictions.append(1)    
+            #predictions.append(1)    
+        # if(passenger['Sex'] == 'male' or (passenger['Age'] >= 10 and passenger['Age'] <=20  and passenger['Age']>=30) or (passenger["SibSp"]>2)  or passenger['Fare'] < 7):
+        #     predictions.append(0)
+        # else:
+        #     predictions.append(1)    
 
 
 
